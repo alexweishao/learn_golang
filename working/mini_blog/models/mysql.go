@@ -1,6 +1,8 @@
 package models
 
-import "github.com/jinzhu/gorm"
+import (
+	"github.com/jinzhu/gorm"
+)
 
 // User 用户基础信息表
 type User struct {
@@ -24,7 +26,7 @@ type UserLoginMessage struct {
 	Password string `json:"password" binding:"required" db:"password"`
 }
 
-func MySQL() (err error) {
+func InitMySQL() (err error) {
 	//用户名：密码@tcp（ip:port）/数据库？charset=utf8&parseTime=true&loc=Local
 	db, err := gorm.Open("mysql", "root:kk123456yy@tcp(localhost:3306)/weibo?charset=utf8&parseTime=True&loc=Local")
 	if err != nil {
@@ -32,8 +34,8 @@ func MySQL() (err error) {
 	}
 	defer db.Close() //关闭空闲连接，防止内存泄漏
 
-	//创建三个表  方式一
-	/*if !db.HasTable(&User{}) {
+	/*//创建三个表  方式一
+	if !db.HasTable(&User{}) {
 	  	if err := db.Set("gorm:table_options", "ENGINE=InnoDB DEFAULT CHARSET=utf8 user '用户基础信息表'").
 	  		CreateTable(&User{}).Error; err != nil {
 	  		panic(err)
@@ -50,7 +52,7 @@ func MySQL() (err error) {
 	  		CreateTable(&models.Message{}).Error; err != nil {
 	  		panic(err)
 	  	}
-	  }*/
+	  }
 
 	//方式二
 	//db.CreateTable(&User{}) //表名称为users
@@ -64,16 +66,18 @@ func MySQL() (err error) {
 	//db.DropTable(&User{})
 
 	//检查表是否存在
-	/*b := db.HasTable("users")
+	b := db.HasTable("users")
 	  fmt.Println(b)
 	  b2 := db.HasTable(&User{})
-	  fmt.Println(b2)*/
+	  fmt.Println(b2)
+
 
 	//方式三  自动迁移表  仅仅会创建表 并添加缺少的列和索引，不会改变现有列的类型或删除未使用的列以保护数据
-	/*db.AutoMigrate(&User{})
+	db.AutoMigrate(&User{})
 	  db.AutoMigrate(&UserLoginMessage{})
 	  db.AutoMigrate(&Message{})*/
-	db.AutoMigrate(&User{}, &UserLoginMessage{}, &Message{})
+
+	db.AutoMigrate(&User{}, &UserLoginMessage{}, &Message{}) //自动创建表
 
 	//创建表时添加表后缀
 	//db.Set("gorm:table_options", "ENGINE=InnoDB").AutoMigrate(&User{}, &UserLoginMessage{}, &Message{})
