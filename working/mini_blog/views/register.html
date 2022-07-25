@@ -5,17 +5,11 @@
     <title>注册</title>
 </head>
 <body>
-<form name = "register" method="post" action="/register">
-    Welcome to register
-    <label>
-        用户名：
-        <input type="text" name="username" placeholder="请输入用户名">
-    </label> <br>
-    <label>
-        密&nbsp;&nbsp;&nbsp;&nbsp;码：
-        <input type="password" name="password" placeholder="请输入密码">
-    </label><br>
-    <button type="submit" ><a href="/register">注册</a></button>
+<form action = "/do_register" method="post">
+    Welcome to register <br>
+        用户名：<input type="text" name="username" placeholder="请输入用户名"><br>
+        密&nbsp;&nbsp;&nbsp;&nbsp;码：<input type="password" name="password" placeholder="请输入密码"><br>
+        <button type="submit" >注册</button>
 </form>
 </body>
 </html>

@@ -1,0 +1,49 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+.sidebar {
+    /* 子绝父相 */
+    position: relative;
+    width: 1200px;
+    height: 700px;
+    margin: 50px auto;
+    color: #ffffff;
+}
+.sidebar ul {
+    width: 200px;
+    height: 100%;
+    background-color: rgba(0, 0, 0, .3);
+}
+.sidebar ul li {
+    list-style: none;
+    height: 50px;
+    padding: 10px 0;
+    transition: all .5s;
+}
+.sidebar ul li p {
+    float: left;
+    margin-left: 50px;
+}
+.sidebar ul li span {
+    float: right;
+    margin-right: 20px;
+}
+.sidebar ul li:hover {
+    background-color: orange;
+    padding-left:20px;
+    cursor: pointer;
+}
+.sidebar ul li:hover .sidebar-mask {
+    display: block;
+}
+.sidebar-mask {
+    display: none;
+    position: absolute;
+    top: 50px;
+    right: 50px;
+    width: 900px;
+    height: 600px;
+    background-color: rgba(0, 0, 0, .3);
+    text-align: center;
+}

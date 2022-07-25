@@ -10,7 +10,6 @@ type User struct {
 	Name  string `json:"name" db:"name"`
 	Age   int    `json:"age" db:"age"`
 	Adder string `json:"adder" db:"adder"`
-	Pic   string `json:"pic" db:"pic"`
 }
 
 // Message 用户发送消息表
