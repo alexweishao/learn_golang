@@ -99,7 +99,7 @@ $(document).ready(function () {
         }
     });
 
-    //修改和添加文章的表单
+    /*//修改和添加文章的表单
     $("#write-art-form").validate({
         rules: {
             title: "required",
@@ -153,7 +153,6 @@ $(document).ready(function () {
         }
     });
 
-
     //文件
     $("#album-upload-button").click(function () {
         var filedata = $("#album-upload-file").val();
@@ -186,4 +185,4 @@ $(document).ready(function () {
             }
         })
     })
-});
+});*/
