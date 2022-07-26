@@ -14,6 +14,7 @@ func main() {
 
 	//前端页面模板解析
 	router.LoadHTMLGlob("views/*")
+	router.Static("/static", "/static")
 
 	//路由分离
 	routers.ParentRouter(router)
