@@ -1,18 +1,21 @@
 package models
 
-import (
-	"fmt"
-	"github.com/jinzhu/gorm"
-)
+import "github.com/jinzhu/gorm"
 
-type UserLoginMessage struct {
+// UserLogin 用户登录信息表
+type UserLogin struct {
 	gorm.Model
-	Id         int
-	Username   string
-	Password   string
-	Status     int // 0 正常状态， 1删除
-	Createtime int64
+	UserName string `gorm:"varchar(20);not null;unique"`
+	Password string `gorm:"size:255;not null"`
 }
+
+/*type UserLoginMessage struct {
+	gorm.Model
+	Id       int
+	Username string
+	Password string
+	//Status   int // 0 正常状态， 1删除
+}*/
 
 //--------------数据库操作-----------------
 
@@ -23,7 +26,7 @@ type UserLoginMessage struct {
 	user.Username, user.Password, user.Status, user.Createtime)
 }*/
 
-//按条件查询
+/*//按条件查询
 func QueryUserWightCon(con string) int {
 	sql := fmt.Sprintf("select id from users %s", con)
 	fmt.Println(sql)
@@ -43,4 +46,4 @@ func QueryUserWithUsername(username string) int {
 func QueryUserWithParam(username, password string) int {
 	sql := fmt.Sprintf("where username='%s' and password='%s'", username, password)
 	return QueryUserWightCon(sql)
-}
+}*/

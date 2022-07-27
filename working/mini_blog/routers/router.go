@@ -6,10 +6,10 @@ import (
 )
 
 func ParentRouter(router *gin.Engine) {
-	//router.GET("/", controllers.ToRegister) //默认接口为注册页面
+	router.GET("/", controllers.Index) //默认接口为注册页面
 
 	router.GET("/login", controllers.LoginGet)   //登录GET接口
-	router.POST("/login", controllers.LoginPost) //登录接口
+	router.POST("/login", controllers.LoginPost) //登录POST接口
 
 	router.GET("/register", controllers.RegisterGet)   //注册GET接口
 	router.POST("/register", controllers.RegisterPost) //注册POST接口

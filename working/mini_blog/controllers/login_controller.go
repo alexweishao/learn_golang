@@ -2,37 +2,73 @@ package controllers
 
 import (
 	"fmt"
-	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
+	"mini_blog/database"
 	"mini_blog/models"
-	"mini_blog/utils"
 	"net/http"
 )
 
-func LoginGet(c *gin.Context) {
+func LoginGet(ctx *gin.Context) {
 	//返回html
-	c.HTML(http.StatusOK, "login.html", gin.H{"title": "登录页"})
+	ctx.HTML(http.StatusOK, "login.html", gin.H{"title": "登录页"})
 }
 
-func LoginPost(c *gin.Context) {
+func LoginPost(ctx *gin.Context) {
+
+	db := database.GetDB()
+
+	//获取参数
+	//此处使用Bind()函数，可以处理不同格式的前端数据
+	var requestUserLogin models.UserLogin
+	ctx.Bind(&requestUserLogin)
 	//获取表单信息
-	username := c.PostForm("username")
-	password := c.PostForm("password")
-	fmt.Println("username:", username, ",password:", password)
+	//username := requestUserLogin.UserName
+	//password := requestUserLogin.Password
+	username := ctx.PostForm("username")
+	password := ctx.PostForm("password")
+	fmt.Println("username:", username)
+	fmt.Println("password:", password)
 
-	id := models.QueryUserWithParam(username, utils.MD5(password))
-	fmt.Println("id:", id)
-	if id > 0 {
-
-		//设置了session后会将数据处理设置到cookie，然后再浏览器进行网络请求的时候回自动带上cookie
-		//因为我们可以通过获取这个cookie来判断用户是谁，这里我们使用的是session的方式进行设置
-
-		session := sessions.Default(c)
-		session.Set("loginuser", username)
-		session.Save()
-
-		c.JSON(http.StatusOK, gin.H{"code": 1, "message": "登录成功"})
-	} else {
-		c.JSON(http.StatusOK, gin.H{"code": 0, "message": "登录失败"})
+	//数据验证
+	if len(username) != 11 {
+		ctx.JSON(http.StatusUnprocessableEntity, gin.H{
+			"code":    422,
+			"message": "用户名需要11位",
+		})
+		return
 	}
+	if len(password) < 6 {
+		ctx.JSON(http.StatusUnprocessableEntity, gin.H{
+			"code":    422,
+			"message": "密码不能少于6位",
+		})
+		return
+	}
+
+	//判断用户名+密码是否存在数据库中
+	var user models.UserLogin
+	db.Where("user_name=? and password=?", username, password).Find(&user)
+	if user.ID == 0 {
+		fmt.Println(user.ID)
+		ctx.JSON(http.StatusUnprocessableEntity, gin.H{
+			"code":    422,
+			"message": "用户不存在",
+		})
+		return
+	}
+
+	//判断密码是否正确
+	/*if err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(password)); err != nil {
+		ctx.JSON(http.StatusUnprocessableEntity, gin.H{
+			"code":    422,
+			"message": "密码错误",
+		})
+		return
+	}*/
+
+	//返回结果
+	ctx.JSON(http.StatusOK, gin.H{
+		"code":    200,
+		"message": "登录成功",
+	})
 }

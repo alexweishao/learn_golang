@@ -3,43 +3,86 @@ package controllers
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"mini_blog/database"
 	"mini_blog/models"
-	"mini_blog/utils"
 	"net/http"
 )
 
-func RegisterGet(c *gin.Context) {
+func RegisterGet(ctx *gin.Context) {
+
 	//返回html
-	c.HTML(http.StatusOK, "register.html", gin.H{"title": "注册页"})
+	ctx.HTML(http.StatusOK, "register.html", gin.H{"title": "注册页"})
 }
 
 //处理注册
 
-func RegisterPost(c *gin.Context) {
-	//获取表单信息
-	username := c.PostForm("username")
-	password := c.PostForm("password")
-	repassword := c.PostForm("repassword")
-	fmt.Println(username, password, repassword)
+func RegisterPost(ctx *gin.Context) {
 
-	//注册之前先判断该用户名是否已经被注册，如果已经注册，返回错误
-	id := models.QueryUserWithUsername(username)
-	fmt.Println("id:", id)
-	if id > 0 {
-		c.JSON(http.StatusOK, gin.H{"code": 0, "message": "用户名已经存在"})
+	db := database.GetDB()
+
+	//获取参数
+	//此处使用Bind()函数，可以处理不同格式的前端数据
+	var requestUserLogin models.UserLogin
+	err := ctx.Bind(&requestUserLogin)
+	if err != nil {
+		return
+	}
+	//username := requestUserLogin.UserName
+	//password := requestUserLogin.Password
+	//获取表单信息
+	username := ctx.PostForm("username")
+	password := ctx.PostForm("password")
+	fmt.Println(username, password)
+
+	//数据验证
+	if len(username) != 11 {
+		ctx.JSON(http.StatusUnprocessableEntity, gin.H{
+			"code":    422,
+			"message": "用户名需要11位",
+		})
+		return
+	}
+	if len(password) < 6 {
+		ctx.JSON(http.StatusUnprocessableEntity, gin.H{
+			"code":    422,
+			"message": "密码不能少于6位",
+		})
 		return
 	}
 
-	//注册用户名和密码
-	//存储的密码是md5后的数据，那么在登录的验证的时候，也是需要将用户的密码md5之后和数据库里面的密码进行判断
-	password = utils.MD5(password)
-	fmt.Println("md5后：", password)
+	//判断用户名是否存在
+	var user models.UserLogin
+	db.Where("user_name = ?", username).First(&user)
+	if user.ID != 0 {
+		ctx.JSON(http.StatusUnprocessableEntity, gin.H{
+			"code":    422,
+			"message": "用户已存在",
+		})
+		return
+	}
 
-	/*	user := models.User{0, username, password, 0, time.Now().Unix()}
-		_, err := models.InsertUser(user)
-		if err != nil {
-			c.JSON(http.StatusOK, gin.H{"code": 0, "message": "注册失败"})
-		} else {
-			c.JSON(http.StatusOK, gin.H{"code": 1, "message": "注册成功"})
-		}*/
+	//密码加密
+	/*createPassword, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
+	if err != nil {
+		ctx.JSON(http.StatusUnprocessableEntity, gin.H{
+			"code":    500,
+			"message": "密码加密错误",
+		})
+		return
+	}*/
+
+	//创建用户
+	newUserLogin := models.UserLogin{
+		UserName: username,
+		Password: password,
+		//Password: string(createPassword),
+	}
+	db.Create(&newUserLogin)
+
+	//返回结果
+	ctx.JSON(http.StatusOK, gin.H{
+		"code":    200,
+		"message": "注册成功",
+	})
+
 }
