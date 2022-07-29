@@ -8,8 +8,8 @@ import (
 func Index(ctx *gin.Context) {
 
 	//返回html
-	ctx.HTML(http.StatusOK, "register.html", gin.H{
+	ctx.HTML(http.StatusOK, "index.html", gin.H{
 		"code":  200,
-		"title": "注册页",
+		"title": "初始页面",
 	})
 }
