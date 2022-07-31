@@ -5,23 +5,17 @@
     <title>登录</title>
 </head>
 <body>
-{{.username}}
-{{.password}}
-    <div id="nav-login">
-        <ul>
-            <li><a href="/register">注册</a></li>
-        </ul>
-    </div>
-
     <!--注册表单-->
             <h1>Welcome</h1>
-            <form action="login.html" method="post" enctype="application/x-www-form-urlencoded">
+            <form action="/login" method="post">
                 <label>
-                    <input type="text" name="username" placeholder="请输入用户名">
+                    <input type="text" name="username" placeholder="请输入用户名"><br>
                 </label>
-                <label for="login-password"></label><input type="password" name="password" placeholder="请输入密码" id="login-password">
-                <br>
-                <button type="submit" id="login-button"><a href="/login">登录</a></button>
+                <label>
+                    <input type="password" name="password" placeholder="请输入密码"> <br>
+                </label>
+
+                <button type="submit">登录</a></button><br>
             </form>
 
 </body>

@@ -27,10 +27,10 @@ func Login(ctx *gin.Context) {
 	password := reqData.Password
 
 	//数据验证
-	if len(username) != 8 {
+	/*if len(username) != 11 {
 		ctx.JSON(http.StatusUnprocessableEntity, gin.H{
 			"code":    422,
-			"message": "用户名需要8位",
+			"message": "用户名需要11位",
 		})
 		return
 	}
@@ -40,7 +40,7 @@ func Login(ctx *gin.Context) {
 			"message": "密码不能少于6位",
 		})
 		return
-	}
+	}*/
 
 	//判断用户名+密码是否存在数据库中
 	var user models.UserLogin
@@ -56,8 +56,9 @@ func Login(ctx *gin.Context) {
 	}
 
 	//返回结果
-	ctx.JSON(http.StatusOK, gin.H{
+	/*ctx.JSON(http.StatusOK, gin.H{
 		"code":    200,
 		"message": "登录成功",
-	})
+	})*/
+	ctx.Redirect(http.StatusMovedPermanently, "/index")
 }

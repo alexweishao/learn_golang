@@ -5,8 +5,8 @@ import "github.com/jinzhu/gorm"
 // UserLogin 用户登录信息表
 type UserLogin struct {
 	gorm.Model
-	UserName string `json:"username"`
-	Password string `json:"password"`
+	UserName string `form:"username"`
+	Password string `form:"password"`
 }
 
 // BlogMessage 信息表

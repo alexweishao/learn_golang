@@ -26,10 +26,10 @@ func Register(ctx *gin.Context) {
 	password := reqData.Password
 
 	//数据验证
-	if len(username) != 6 {
+	/*if len(username) != 11 {
 		ctx.JSON(http.StatusUnprocessableEntity, gin.H{
 			"code":    422,
-			"message": "用户名需要6位",
+			"message": "用户名需要11位",
 		})
 		return
 	}
@@ -39,8 +39,8 @@ func Register(ctx *gin.Context) {
 			"message": "密码不能少于6位",
 		})
 		return
-	}
-	//var db *gorm.DB
+	}*/
+
 	//判断用户名是否存在
 	var user models.UserLogin
 	db.Where("user_name = ?", username).First(&user)
@@ -55,10 +55,11 @@ func Register(ctx *gin.Context) {
 		UserName: username,
 		Password: password,
 	}
-	db.Create(&newUser)
+	db.Create(&newUser) //将用户数据写入数据库表中
 	//返回结果
-	ctx.JSON(http.StatusOK, gin.H{
+	/*ctx.JSON(http.StatusOK, gin.H{
 		"code":    200,
 		"message": "注册成功",
-	})
+	})*/
+	ctx.Redirect(http.StatusMovedPermanently, "login")
 }
