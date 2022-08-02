@@ -8,24 +8,14 @@ import (
 )
 
 func main() {
-	myPhrase := "mmm, licorice"
-	rdr := strings.NewReader(myPhrase)
+	myPhrase := "i love you!"
+	rdr := strings.NewReader(myPhrase) //NewReader入参是string类型。出参为*Reader
 
-	bs, err := ioutil.ReadAll(rdr)
+	bs, err := ioutil.ReadAll(rdr) //输入一个 io.Reader类型的r，输出[]byte类型和error
 	if err != nil {
 		log.Fatalln("my program broke again")
 	}
-
-	str := string(bs)
+	fmt.Println(bs)   //[105 32 108 111 118 101 32 121 111 117 33]
+	str := string(bs) //将[]byte类型转化为string类型
 	fmt.Println(str)
 }
-
-/*
-
-step 1 - at command line enter:
-go install
-
-step 2 - at command line enter:
-06_cat main.go
-
-*/

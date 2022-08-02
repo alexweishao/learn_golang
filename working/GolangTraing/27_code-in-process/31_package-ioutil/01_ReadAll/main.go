@@ -9,6 +9,7 @@ import (
 
 func main() {
 	f, err := os.Open(os.Args[1])
+	fmt.Println(f)
 	if err != nil {
 		log.Fatalln("my program broke", err.Error())
 	}
@@ -22,13 +23,3 @@ func main() {
 	str := string(bs)
 	fmt.Println(str)
 }
-
-/*
-
-step 1 - at command line enter:
-go install
-
-step 2 - at command line enter:
-06_cat main.go
-
-*/
