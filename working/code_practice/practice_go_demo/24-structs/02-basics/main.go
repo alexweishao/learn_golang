@@ -1,51 +1,44 @@
-// Copyright © 2018 Inanc Gumus
-// Learn Go Programming Course
-// License: https://creativecommons.org/licenses/by-nc-sa/4.0/
-//
-// For more tutorials  : https://learngoprogramming.com
-// In-person training  : https://www.linkedin.com/in/inancgumus/
-// Follow me on twitter: https://twitter.com/inancgumus
-
 package main
 
 import "fmt"
 
 func main() {
-	/*
-		USING VARIABLES
-	*/
 
 	var (
 		name, lastname string
-		age            int
+		age, number    int
 
 		name2, lastname2 string
 		age2             int
 	)
 
-	name, lastname, age = "Pablo", "Picasso", 95
+	name, lastname, age, number = "Pablo", "Picasso", 95, 100
 	name2, lastname2, age = "Sigmund", "Freud", 83
 
-	fmt.Println("Picasso:", name, lastname, age)
+	fmt.Println("Picasso:", name, lastname, age, number)
 	fmt.Println("Freud  :", name2, lastname2, age2)
 
-	// var picasso struct {
-	// 	name, lastname string
-	// 	age            int
-	// }
-
-	// var freud struct {
-	// 	name, lastname string
-	// 	age            int
-	// }
-
-	// create a new struct type
+	type animal struct { //定义结构体
+		color  string
+		weight int
+		voice  string
+	}
+	cat := animal{ //实例化结构体
+		color:  "black",
+		weight: 4,
+		voice:  "喵喵喵",
+	}
+	var dog animal
+	dog.color = "gray"
+	dog.weight = 6
+	dog.voice = "汪汪"
+	fmt.Println(cat)
+	fmt.Printf("猫的颜色:%s\n猫的体重:%d\n猫的声音:%s\n", cat.color, cat.weight, cat.voice)
 	type person struct {
 		name, lastname string
 		age            int
 	}
 
-	// picasso := person{name: "Pablo", lastname: "Picasso", age: 91}
 	picasso := person{
 		name:     "Pablo",
 		lastname: "Picasso",

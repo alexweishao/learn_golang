@@ -1,21 +1,18 @@
-// Copyright © 2018 Inanc Gumus
-// Learn Go Programming Course
-// License: https://creativecommons.org/licenses/by-nc-sa/4.0/
-//
-// For more tutorials  : https://learngoprogramming.com
-// In-person training  : https://www.linkedin.com/in/inancgumus/
-// Follow me on twitter: https://twitter.com/inancgumus
-
 package main
 
 import "fmt"
 
-// #1b: create the song struct type
-type song struct {
+type book struct {
+	title, author string
+}
+type content struct {
+	addr     string
+	chapters []book
+}
+type song struct { //创建一个结构体，含有两个字段
 	title, artist string
 }
 
-// #5: structs can contain other structs
 type playlist struct {
 	genre string
 
@@ -59,15 +56,6 @@ func main() {
 		songs: songs,
 	}
 
-	// #9: you can't compare struct values that contains incomparable fields
-	// you need to compare them manually
-
-	// clone := rock
-	// if rock.songs == clone {
-	// }
-	// if songs == songs {
-
-	// #11: song is a clone, it cannot change the original struct value
 	song := rock.songs[0]
 	song.title = "live forever"
 
