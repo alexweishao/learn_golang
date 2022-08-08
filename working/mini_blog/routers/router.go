@@ -20,4 +20,6 @@ func ParentRouter(router *gin.Engine) {
 
 	router.GET("/index", controllers.Index) //首页
 
+	router.GET("/addArticle", controllers.GoAddArticle)
+	router.POST("/toaddArticle", controllers.AddArticle)
 }

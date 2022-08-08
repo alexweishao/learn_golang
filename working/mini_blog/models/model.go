@@ -12,7 +12,7 @@ type UserLogin struct {
 // BlogMessage 信息表
 type BlogMessage struct {
 	gorm.Model
-	Title   string `json:"title"`
-	Content string `gorm:"type:text"`
-	Tag     string `json:"tag"`
+	Title   string `form:"title"`
+	Content string `form:"content"`
+	Tag     string `form:"tag"`
 }
