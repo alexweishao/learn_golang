@@ -19,6 +19,17 @@ func PublishArticle(ctx *gin.Context) {
 	tag := reqArticleMessage.Tag
 	content := reqArticleMessage.Content
 
+	//判断文章tag是否重复
+	/*var articleTag models.BlogMessage
+	db.Where("tag=?", tag).Find(&articleTag)
+	if articleTag.ID == 0 {
+		ctx.JSON(http.StatusUnprocessableEntity, gin.H{
+			"code":    422,
+			"message": "文章标签重复",
+		})
+		return
+	}*/
+
 	newMessage := models.BlogMessage{
 		Title:   title,
 		Tag:     tag,
@@ -26,20 +37,9 @@ func PublishArticle(ctx *gin.Context) {
 	}
 	db.Create(&newMessage) //将blog内容写入数据库blog_messages表中
 
-	/*//判断用户名+密码是否存在数据库中
-	var user models.UserLogin
-	db.Where("user_name=? and password=?", username, password).Find(&user)
-	if user.ID == 0 {
-		ctx.JSON(http.StatusUnprocessableEntity, gin.H{
-			"code":    422,
-			"message": "用户名或密码不正确",
-		})
-		return
-	}*/
-
 	//返回结果
 	ctx.JSON(http.StatusOK, gin.H{
 		"code":    200,
-		"message": "blog数据写入成功",
+		"message": "blog发布成功",
 	})
 }
