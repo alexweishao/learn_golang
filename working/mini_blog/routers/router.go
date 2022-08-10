@@ -21,6 +21,6 @@ func ParentRouter(router *gin.Engine) {
 	router.GET("/show_articles", controllers.ShowArticle)             //查看所有文章接口
 	router.GET("/show_articles/:tag", controllers.ShowArticle)        //查看某一个文章接口
 	router.DELETE("/delete_articles/:tag", controllers.DeleteArticle) //删除文章接口
-	//router.PUT("/update_articles/:tag", controllers.UpdateArticle)   //更新文章接口
+	router.PUT("/update_articles/:tag", controllers.UpdateArticle)    //更新文章接口
 
 }
