@@ -35,11 +35,24 @@ func PublishArticle(ctx *gin.Context) {
 		Tag:     tag,
 		Content: content,
 	}
-	db.Create(&newMessage) //将blog内容写入数据库blog_messages表中
+	//db.Create(&newMessage) //将blog内容写入数据库blog_messages表中
 
+	if err = db.Create(&newMessage).Error; err != nil {
+		ctx.JSON(http.StatusOK, gin.H{
+			"code":    1001,
+			"msg":     "success",
+			"message": "blog发布成功",
+		})
+	} else {
+		ctx.JSON(http.StatusOK, gin.H{
+			"code": 1001,
+			"msg":  "success",
+			"data": newMessage,
+		})
+	}
 	//返回结果
-	ctx.JSON(http.StatusOK, gin.H{
+	/*ctx.JSON(http.StatusOK, gin.H{
 		"code":    200,
 		"message": "blog发布成功",
-	})
+	})*/
 }
