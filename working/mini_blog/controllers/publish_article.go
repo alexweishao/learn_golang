@@ -19,40 +19,22 @@ func PublishArticle(ctx *gin.Context) {
 	tag := reqArticleMessage.Tag
 	content := reqArticleMessage.Content
 
-	//判断文章tag是否重复
-	/*var articleTag models.BlogMessage
-	db.Where("tag=?", tag).Find(&articleTag)
-	if articleTag.ID == 0 {
-		ctx.JSON(http.StatusUnprocessableEntity, gin.H{
-			"code":    422,
-			"message": "文章标签重复",
-		})
-		return
-	}*/
-
 	newMessage := models.BlogMessage{
 		Title:   title,
 		Tag:     tag,
 		Content: content,
 	}
-	//db.Create(&newMessage) //将blog内容写入数据库blog_messages表中
+	//db.Create(&newMessage) 将blog内容写入数据库blog_messages表中
 
-	if err = db.Create(&newMessage).Error; err != nil {
+	if err = db.Create(&newMessage).Error; err != nil { //newMessage 字段插入db表中
 		ctx.JSON(http.StatusOK, gin.H{
-			"code":    1001,
-			"msg":     "success",
-			"message": "blog发布成功",
+			"code": 200,
+			"msg":  "fail",
 		})
 	} else {
 		ctx.JSON(http.StatusOK, gin.H{
-			"code": 1001,
+			"code": 200,
 			"msg":  "success",
-			"data": newMessage,
 		})
 	}
-	//返回结果
-	/*ctx.JSON(http.StatusOK, gin.H{
-		"code":    200,
-		"message": "blog发布成功",
-	})*/
 }

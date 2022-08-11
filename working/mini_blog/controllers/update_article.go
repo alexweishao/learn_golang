@@ -44,12 +44,12 @@ func UpdateArticle(ctx *gin.Context) {
 		ctx.JSON(http.StatusOK, gin.H{
 			"code":    1004,
 			"msg":     "success",
-			"message": "blog发布失败",
+			"message": "update fail！",
 		})
 	} else {
 		ctx.JSON(http.StatusOK, gin.H{
 			"code": 1001,
-			"msg":  "success",
+			"msg":  "update success.",
 			"data": article,
 		})
 	}

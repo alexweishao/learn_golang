@@ -14,22 +14,18 @@ func ShowArticle(ctx *gin.Context) {
 	var articles []models.BlogMessage
 
 	//Debug()返回SQL语句
-	if err := db.Find(&articles); err != nil {
+
+	db.Find(&articles)
+	if err := db.Find(&articles).Error; err != nil {
 		ctx.JSON(http.StatusOK, gin.H{
-			"code":    1001,
-			"msg":     "success",
-			"message": "blog发布成功",
+			"code": 200,
+			"msg":  "fail",
 		})
 	} else {
 		ctx.JSON(http.StatusOK, gin.H{
-			"code": 1001,
+			"code": 200,
 			"msg":  "success",
 			"data": articles,
 		})
 	}
-
-	ctx.JSON(200, gin.H{
-		"articles": articles,
-		"message":  "查询成功",
-	})
 }
