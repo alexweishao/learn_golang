@@ -1,87 +1,57 @@
 package controllers
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"mini_blog/dao"
 	"mini_blog/models"
 	"net/http"
+	"strconv"
 )
-
-type message models.BlogMessage
-
-func GetAMessage(id string) (blogmessage *message, err error) {
-	blogmessage = new(message)
-	dao.DB.Where("id=?", id).First(blogmessage)
-	return
-}
-
-func UpdateAMessage(blogmessage *message) (err error) {
-	err = dao.DB.Save(blogmessage).Error
-	return
-}
 
 func UpdateArticle(ctx *gin.Context) {
 
-	id, ok := ctx.Params.Get("id")
-	if !ok {
-		ctx.JSON(http.StatusOK, gin.H{
-			"error": "无效的id",
-		})
-		return
-	}
-	blogmessage, err := GetAMessage(id)
-	if err != nil {
-		ctx.JSON(http.StatusOK, gin.H{
-			"error": err.Error(),
-		})
-		return
-	}
-	ctx.Bind(&blogmessage)
-	if err = UpdateAMessage(blogmessage); err != nil {
-		ctx.JSON(http.StatusOK, gin.H{
-			"error": err.Error(),
-		})
-	} else {
-		ctx.JSON(http.StatusOK, blogmessage)
-	}
+	db := dao.GetDB()
 
-	/*db := dao.GetDB()
-
+	id := ctx.Param("id") //获取前端指定的id
+	fmt.Println(id)
 	var article models.BlogMessage
+	db.Debug().Where("id=?", id).First(&article)
+	//SELECT * FROM `blog_messages`  WHERE (id='2') ORDER BY `blog_messages`.`id` ASC LIMIT 1
 
-	id, ok := ctx.Params.Get("id")
-	if !ok {
-		ctx.JSON(http.StatusOK, gin.H{
-			"error": "id invalid!",
-		})
-		return
-	}
-
-	ctx.Bind(&article)
-
-	messageId := article.ID
-	newMessage := models.BlogMessage{
-		ID: messageId,
-	}
-
-	if err := db.Where("id=?", id).First(&article).Error; err != nil {
-		ctx.JSON(http.StatusOK, gin.H{
+	/*ctx.JSON(http.StatusOK, gin.H{
 			"error": err.Error(),
 		})
 		return
+	}*/
+	ctx.ShouldBind(&article)
+
+	err := ctx.Bind(&article)
+	if err != nil {
+		return
+	}
+	id = strconv.Itoa(article.ID)
+	title := article.Title
+	tag := article.Tag
+	content := article.Content
+
+	newMessage := models.BlogMessage{
+		Title:   title,
+		Tag:     tag,
+		Content: content,
 	}
 
 	if err := db.Save(&newMessage).Error; err != nil {
 		ctx.JSON(http.StatusOK, gin.H{
-			"code":    1004,
+			"code":    200,
 			"msg":     "success",
 			"message": "update fail！",
 		})
 	} else {
 		ctx.JSON(http.StatusOK, gin.H{
-			"code": 1001,
+			"code": 200,
 			"msg":  "update success.",
-			"data": newMessage,
+			"data": article,
 		})
-	}*/
+	}
 }
