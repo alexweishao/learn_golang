@@ -26,7 +26,7 @@ func PublishArticle(ctx *gin.Context) {
 	}
 	//db.Create(&newMessage) 将blog内容写入数据库blog_messages表中
 
-	if err = db.Create(&newMessage).Error; err != nil { //newMessage 字段插入db表中
+	if err = db.Debug().Create(&newMessage).Error; err != nil { //newMessage 字段插入db表中
 		ctx.JSON(http.StatusOK, gin.H{
 			"code": 200,
 			"msg":  "fail",

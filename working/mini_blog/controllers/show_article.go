@@ -15,8 +15,7 @@ func ShowArticle(ctx *gin.Context) {
 
 	//Debug()返回SQL语句
 
-	db.Find(&articles)
-	if err := db.Find(&articles).Error; err != nil {
+	if err := db.Debug().Find(&articles).Error; err != nil {
 		ctx.JSON(http.StatusOK, gin.H{
 			"code": 200,
 			"msg":  "fail",

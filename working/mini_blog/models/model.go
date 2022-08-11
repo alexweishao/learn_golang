@@ -11,7 +11,8 @@ type UserLogin struct {
 
 // BlogMessage 信息表
 type BlogMessage struct {
-	gorm.Model
+	//gorm.Model
+	ID      int    `form:"id"  json:"id"`
 	Tag     string `form:"tag" gorm:"tag" json:"tag"`
 	Title   string `form:"title" gorm:"title" json:"title"`
 	Content string `form:"content" gorm:"content" json:"content""`
