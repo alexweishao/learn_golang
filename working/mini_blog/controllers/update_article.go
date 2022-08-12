@@ -10,7 +10,7 @@ import (
 )
 
 func UpdateArticle(ctx *gin.Context) {
-
+	fmt.Println("qqq")
 	db := dao.GetDB()
 
 	id := ctx.Param("id") //获取前端指定的id
@@ -18,13 +18,6 @@ func UpdateArticle(ctx *gin.Context) {
 	var article models.BlogMessage
 	db.Debug().Where("id=?", id).First(&article)
 	//SELECT * FROM `blog_messages`  WHERE (id='2') ORDER BY `blog_messages`.`id` ASC LIMIT 1
-
-	/*ctx.JSON(http.StatusOK, gin.H{
-			"error": err.Error(),
-		})
-		return
-	}*/
-	ctx.ShouldBind(&article)
 
 	err := ctx.Bind(&article)
 	if err != nil {
@@ -36,6 +29,7 @@ func UpdateArticle(ctx *gin.Context) {
 	content := article.Content
 
 	newMessage := models.BlogMessage{
+		ID:      article.ID,
 		Title:   title,
 		Tag:     tag,
 		Content: content,
