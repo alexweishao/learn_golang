@@ -1,10 +1,9 @@
 package models
 
-import "github.com/jinzhu/gorm"
-
 // UserLogin 用户登录信息表
 type UserLogin struct {
-	gorm.Model
+	//gorm.Model
+	ID       int    `form:"id"  json:"id"`
 	UserName string `form:"username" gorm:"username" json:"username"`
 	Password string `form:"password" gorm:"password" json:"password"`
 }
