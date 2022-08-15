@@ -34,7 +34,7 @@ func UserMessage(ctx *gin.Context) {
 		})
 		return
 	}
-	dao.DB.Where("name = ?", name).First(&userMessage)
+	dao.DB.Where("phone_number = ?", phoneNumber).First(&userMessage)
 	if userMessage.ID != 0 {
 		ctx.JSON(http.StatusUnprocessableEntity, gin.H{
 			"code":    422,
