@@ -3,7 +3,7 @@ package models
 // UserLogin 用户登录信息表
 type UserLogin struct {
 	//gorm.Model
-	ID       int    `form:"id"  json:"id"`
+	ID       int    `form:"id" gorm:"primary_key" json:"id"`
 	UserName string `form:"username" gorm:"username" json:"username"`
 	Password string `form:"password" gorm:"password" json:"password"`
 }
