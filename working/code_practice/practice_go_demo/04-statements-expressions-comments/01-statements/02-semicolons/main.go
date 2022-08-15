@@ -13,5 +13,6 @@ import (
 )
 
 func main() {
-	fmt.Println("Hello"); fmt.Println("World!")
+	fmt.Println("Hello")
+	fmt.Println("World!") //同一行连续写语句需要用“;”进行分隔
 }

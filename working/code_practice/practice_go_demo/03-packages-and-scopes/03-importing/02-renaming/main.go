@@ -9,9 +9,9 @@
 package main
 
 import "fmt"
-import f "fmt"
+import f "fmt" //可以自定义包名
 
 func main() {
 	fmt.Println("Hello!")
-	f.Println("There!")
+	f.Println("There!") //使用自定义包名
 }

@@ -8,6 +8,8 @@
 
 package main
 
+import "fmt"
+
 // ---------------------------------------------------------
 // EXERCISE: Use your own package
 //
@@ -29,4 +31,6 @@ package main
 
 func main() {
 	// call functions of the other files here
+	fmt.Println("learn here.")
+	send() //调用函数send
 }

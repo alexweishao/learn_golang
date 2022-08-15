@@ -15,5 +15,5 @@ import (
 
 func main() {
 	// runtime.NumCPU() is a call expression
-	fmt.Println(runtime.NumCPU() + 1)
+	fmt.Println(runtime.NumCPU() + 1) //输出本机cpu的核数
 }

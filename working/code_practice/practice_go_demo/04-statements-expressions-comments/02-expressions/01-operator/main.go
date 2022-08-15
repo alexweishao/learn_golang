@@ -13,5 +13,6 @@ import (
 )
 
 func main() {
-	fmt.Println("Hello!" + "!")
+	fmt.Println("Hello!" + "!") //使用+号进行字符串的拼接
+	fmt.Println("hel" + "lo")   //hello
 }

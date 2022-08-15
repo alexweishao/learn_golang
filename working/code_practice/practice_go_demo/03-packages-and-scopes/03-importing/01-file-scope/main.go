@@ -12,4 +12,6 @@ import "fmt"
 
 func main() {
 	fmt.Println("Hello!")
+	fmt.Println("OK find!")
+	byte()
 }

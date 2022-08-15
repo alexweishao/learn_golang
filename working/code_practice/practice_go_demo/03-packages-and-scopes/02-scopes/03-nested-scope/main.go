@@ -14,7 +14,7 @@ import "fmt"
 // As a side-note, I wanted to put it here
 // Please review it.
 
-var declareMeAgain = 10
+var declareMeAgain = 10 //全局变量
 
 func nested() { // block scope starts
 
@@ -22,19 +22,19 @@ func nested() { // block scope starts
 	// they both can exist together
 	// this one only belongs to this scope
 	// package's variable is still intact
-	var declareMeAgain = 5
+	var declareMeAgain = 5 //局部变量
 	fmt.Println("inside nested:", declareMeAgain)
 
 } // block scope ends
 
 func main() { // block scope starts
 
-	fmt.Println("inside main:", declareMeAgain)
+	fmt.Println("inside main:", declareMeAgain) //10
 
-	nested()
+	nested() //5
 
 	// package-level declareMeAgain isn't effected
 	// from the change inside the nested func
-	fmt.Println("inside main:", declareMeAgain)
+	fmt.Println("inside main:", declareMeAgain) //10
 
 } // block scope ends
