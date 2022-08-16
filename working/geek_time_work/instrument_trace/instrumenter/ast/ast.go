@@ -41,7 +41,7 @@ func hasFuncDecl(f *ast.File) bool {
 }
 
 func (a instrumenter) Instrument(filename string) ([]byte, error) {
-	fset := token.NewFileSet()
+	fset := token.NewFileSet() //NewFileSet 创建一个新的文件集。
 	curAST, err := parser.ParseFile(fset, filename, nil, parser.ParseComments)
 	if err != nil {
 		return nil, fmt.Errorf("error parsing %s: %w", filename, err)

@@ -54,7 +54,7 @@ func main() {
 	//   |
 	//   +------ 16 * 1 = 16
 	//                  = 16
-	fmt.Println(0x10)
+	fmt.Println(0x10, 0x11, 0x12, 0x13)
 
 	// I'm going to print 150 in hexadecimal
 	// 0x96
