@@ -18,23 +18,22 @@ func PublishArticle(ctx *gin.Context) {
 	title := reqArticleMessage.Title
 	tag := reqArticleMessage.Tag
 	content := reqArticleMessage.Content
+	uid := reqArticleMessage.UID
 
 	newMessage := models.BlogMessage{
 		Title:   title,
 		Tag:     tag,
 		Content: content,
+		UID:     uid,
 	}
-	//db.Create(&newMessage) 将blog内容写入数据库blog_messages表中
 
-	if err = db.Debug().Create(&newMessage).Error; err != nil { //newMessage 字段插入db表中
-		ctx.JSON(http.StatusOK, gin.H{
-			"code": 200,
-			"msg":  "fail",
-		})
-	} else {
-		ctx.JSON(http.StatusOK, gin.H{
-			"code": 200,
-			"msg":  "success",
-		})
+	if err = db.Table("blog_message").Create(&newMessage).Error; err != nil { //newMessage 字段插入db表中
+		returnErr(ctx, err, "db.Create(&newUser).Error ")
+		return
 	}
+	ctx.JSON(http.StatusOK, gin.H{
+		"code": 200,
+		"msg":  "success",
+	})
+
 }

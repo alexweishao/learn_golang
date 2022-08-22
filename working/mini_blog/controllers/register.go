@@ -9,13 +9,6 @@ import (
 	"net/http"
 )
 
-//到注册页面
-func GoRegister(ctx *gin.Context) {
-
-	//返回html
-	ctx.HTML(http.StatusOK, "register.html", nil)
-}
-
 //处理注册
 func Register(ctx *gin.Context) {
 	db := dao.GetDB()

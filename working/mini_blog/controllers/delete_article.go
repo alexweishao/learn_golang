@@ -14,7 +14,7 @@ func DeleteArticle(ctx *gin.Context) {
 	var reqDelete models.BlogMessage //reqDelete是结构体
 	//var articles []models.BlogMessage
 
-	num := db.Debug().Where("id = ?", id).Delete(&reqDelete).RowsAffected
+	num := db.Table("blog_message").Where("id = ?", id).Delete(&reqDelete).RowsAffected
 	if num == 0 {
 		ctx.JSON(http.StatusOK, gin.H{
 			"code": 200,

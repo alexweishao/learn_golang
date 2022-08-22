@@ -20,8 +20,8 @@ func ParentRouter(router *gin.Engine) {
 	router.POST("/user_message", controllers.UserMessage)                    //登记个人信息接口
 	router.DELETE("/delete_user_message/:id", controllers.DeleteUserMessage) //删除用户注册信息接口
 	router.POST("/publish_articles", controllers.PublishArticle)             //发布文章接口
-	router.GET("/show_articles", controllers.ShowArticle)                    //查看所有文章接口
-	router.GET("/show_articles/:id", controllers.ShowArticle)                //查看某一个文章接口
+	router.GET("/all/article/list", controllers.ShowAllArticle)              //查看所有文章列表接口
+	router.GET("/user/article/list/", controllers.ShowUserArticle)           //查看用户文章列表接口
 	router.DELETE("/delete_articles/:id", controllers.DeleteArticle)         //删除文章接口
 	router.PUT("/update_articles/:id", controllers.UpdateArticle)            //更新文章接口
 

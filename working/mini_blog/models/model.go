@@ -4,18 +4,18 @@ package models
 type UserLogin struct {
 	//gorm.Model
 	ID       int    `form:"id" gorm:"primary_key" json:"id"`
-	UserName string `form:"username" gorm:"column:username" json:"username"`
-	Password string `form:"password" gorm:"password" json:"password"`
+	UserName string `form:"username" gorm:"column:username" json:"username" binding:"required"`
+	Password string `form:"password" gorm:"password" json:"password" binding:"required"`
 }
 
 // BlogMessage 信息表
 type BlogMessage struct {
 	//gorm.Model
 	ID      int    `form:"id"  json:"id"`
-	Tag     string `form:"tag" gorm:"tag" json:"tag"`
-	Title   string `form:"title" gorm:"title" json:"title"`
-	Content string `form:"content" gorm:"content" json:"content"`
-	UID     int    `form:"uid"  json:"uid"`
+	Tag     string `form:"tag" gorm:"tag" json:"tag" binding:"required"`
+	Title   string `form:"title" gorm:"title" json:"title" binding:"required"`
+	Content string `form:"content" gorm:"content" json:"content" binding:"required"`
+	UID     int    `form:"uid"  json:"uid" binding:"required"`
 }
 
 // UserMessage 用户信息表
