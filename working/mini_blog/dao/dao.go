@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"github.com/jinzhu/gorm"
 	"log"
-	"mini_blog/models"
 )
 
 var DB *gorm.DB
@@ -23,7 +22,6 @@ func InitDB() *gorm.DB { //定义数据库参数
 	if err != nil {
 		log.Fatal("连接数据库失败，err:" + err.Error())
 	}
-	db.AutoMigrate(&models.UserLogin{}, &models.BlogMessage{}, &models.UserMessage{}) //自动创建表 UserLogin BlogMessage
 
 	DB = db
 

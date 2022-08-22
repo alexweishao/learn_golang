@@ -4,7 +4,7 @@ package models
 type UserLogin struct {
 	//gorm.Model
 	ID       int    `form:"id" gorm:"primary_key" json:"id"`
-	UserName string `form:"username" gorm:"username" json:"username"`
+	UserName string `form:"username" gorm:"column:username" json:"username"`
 	Password string `form:"password" gorm:"password" json:"password"`
 }
 
@@ -15,6 +15,7 @@ type BlogMessage struct {
 	Tag     string `form:"tag" gorm:"tag" json:"tag"`
 	Title   string `form:"title" gorm:"title" json:"title"`
 	Content string `form:"content" gorm:"content" json:"content"`
+	UID     int    `form:"uid"  json:"uid"`
 }
 
 // UserMessage 用户信息表
